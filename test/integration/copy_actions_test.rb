@@ -55,7 +55,9 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
 
           assert_equal "/copy/123/edit", current_path
 
-          select "Third floor", from: "Shelf"
+          within ".copy-shelf-id" do
+            select "Third floor", from: "Shelf"
+          end
           click_on "Set shelf"
 
           assert_equal "/copy/123", current_path
@@ -92,7 +94,7 @@ class CopyActionsTest < ActionDispatch::IntegrationTest
         assert page.has_content?("123")
         assert page.has_content?("Available to borrow")
         save_and_open_page
-        within ".shelf" do
+        within ".span.shelf" do
           assert page.has_content?("Sixth floor")
         end
       end
